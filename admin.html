@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBA Admin Panel - Διαχείριση Μελών</title>
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Admin Login -->
+        <div class="admin-login" id="adminLogin">
+            <div class="login-box">
+                <div class="login-header">
+                    <img src="hba-logo.svg" alt="HBA Logo" class="admin-logo">
+                    <h1>Admin Panel</h1>
+                    <p>Hellenic Bodyguards Association</p>
+                </div>
+                <form id="adminLoginForm">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="adminUsername" placeholder="admin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="adminPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Σύνδεση</button>
+                    <div class="demo-credentials">
+                        <small>Demo: admin / admin123</small>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <h2><img src="hba-logo.svg" alt="HBA" style="width: 35px; height: 35px; vertical-align: middle; margin-right: 10px;"> HBA Admin Panel</h2>
+                </div>
+                <div class="header-right">
+                    <span class="admin-name" id="adminName">Admin</span>
+                    <button class="btn-logout" id="adminLogout">Αποσύνδεση</button>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <div class="admin-content">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 id="totalMembers">0</h3>
+                            <p>Σύνολο Μελών</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <h3 id="activeMembers">0</h3>
+                            <p>Ενεργά Μέλη</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-info">
+                            <h3 id="pendingMembers">0</h3>
+                            <p>Σε Αναμονή</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-info">
+                            <h3 id="totalCerts">0</h3>
+                            <p>Πιστοποιήσεις</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="actions-bar">
+                    <button class="btn-action btn-add" id="btnAddMember">
+                        <span>➕</span> Νέο Μέλος
+                    </button>
+                    <button class="btn-action" id="btnExport">
+                        <span>📥</span> Export Data
+                    </button>
+                    <button class="btn-action" id="btnImport">
+                        <span>📤</span> Import Data
+                    </button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                </div>
+
+                <!-- Search -->
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="🔍 Αναζήτηση μέλους (όνομα, αριθμός, email)...">
+                    <select id="filterStatus">
+                        <option value="all">Όλα τα μέλη</option>
+                        <option value="active">Ενεργά</option>
+                        <option value="inactive">Ανενεργά</option>
+                    </select>
+                </div>
+
+                <!-- Members Table -->
+                <div class="table-container">
+                    <table class="members-table">
+                        <thead>
+                            <tr>
+                                <th>Αριθμός</th>
+                                <th>Όνομα</th>
+                                <th>Email</th>
+                                <th>Τηλέφωνο</th>
+                                <th>Ειδικότητα</th>
+                                <th>Κατάσταση</th>
+                                <th>Λήξη</th>
+                                <th>Ενέργειες</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersTableBody">
+                            <!-- Members will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add/Edit Member Modal -->
+        <div class="modal" id="memberModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Νέο Μέλος</h3>
+                    <button class="modal-close" id="closeModal">&times;</button>
+                </div>
+                <form id="memberForm">
+                    <input type="hidden" id="editMemberId">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Αριθμός Μέλους *</label>
+                            <input type="text" id="memberId" placeholder="HBA-2024-XXX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Κωδικός Πρόσβασης *</label>
+                            <input type="password" id="memberPassword" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Ονοματεπώνυμο *</label>
+                            <input type="text" id="memberName" placeholder="ΟΝΟΜΑ ΕΠΩΝΥΜΟ" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ημ/νία Γέννησης *</label>
+                            <input type="date" id="memberBirthdate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="memberEmail" placeholder="email@example.gr" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Τηλέφωνο *</label>
+                            <input type="tel" id="memberPhone" placeholder="+30 XXX XXX XXXX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ειδικότητα *</label>
+                            <select id="memberSpecialty" required>
+                                <option value="">Επιλέξτε...</option>
+                                <option value="Executive Protection">Executive Protection</option>
+                                <option value="VIP Security">VIP Security</option>
+                                <option value="Event Security">Event Security</option>
+                                <option value="Personal Protection">Personal Protection</option>
+                                <option value="Close Protection Officer">Close Protection Officer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Επίπεδο *</label>
+                            <select id="memberLevel" required>
+                                <option value="">Επιλέξτε...</option>
+                                <option value="Level I - Junior">Level I - Junior</option>
+                                <option value="Level II - Professional">Level II - Professional</option>
+                                <option value="Level III - Senior">Level III - Senior</option>
+                                <option value="Level IV - Expert">Level IV - Expert</option>
+                                <option value="Master Instructor">Master Instructor</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ημ/νία Εγγραφής *</label>
+                            <input type="date" id="memberJoinDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Λήξη Κάρτας *</label>
+                            <input type="date" id="memberExpiry" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Κατάσταση *</label>
+                            <select id="memberStatus" required>
+                                <option value="active">Ενεργό</option>
+                                <option value="inactive">Ανενεργό</option>
+                                <option value="pending">Σε Αναμονή</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Φωτογραφία (URL ή Emoji)</label>
+                            <input type="text" id="memberPhoto" placeholder="👤 ή https://...">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Πιστοποιήσεις (μία ανά γραμμή)</label>
+                            <textarea id="memberCertifications" rows="4" placeholder="Βασική Εκπαίδευση Bodyguard
+Πρώτες Βοήθειες
+Αμυντική Οδήγηση"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="cancelModal">Ακύρωση</button>
+                        <button type="submit" class="btn-primary">Αποθήκευση</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

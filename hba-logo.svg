@@ -1,0 +1,96 @@
+<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Dark Blue to Black Gradient -->
+    <linearGradient id="darkBlueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#003D7A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#001F3F;stop-opacity:1" />
+    </linearGradient>
+    <!-- Black Gradient -->
+    <linearGradient id="blackGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A1A1A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  
+  <!-- Outer White Ring -->
+  <circle cx="150" cy="150" r="145" fill="none" stroke="#FFFFFF" stroke-width="6" filter="url(#shadow)"/>
+  
+  <!-- Main Shield Shape - Dark Blue -->
+  <path d="M 150 40 
+           L 210 70 
+           L 210 140 
+           Q 210 180, 190 210
+           Q 170 235, 150 250
+           Q 130 235, 110 210
+           Q 90 180, 90 140
+           L 90 70 Z" 
+        fill="url(#darkBlueGrad)" 
+        stroke="#FFFFFF" 
+        stroke-width="4"
+        filter="url(#shadow)"/>
+  
+  <!-- Inner Shield Detail - White -->
+  <path d="M 150 60 
+           L 195 82 
+           L 195 135 
+           Q 195 165, 180 187
+           Q 165 205, 150 217
+           Q 135 205, 120 187
+           Q 105 165, 105 135
+           L 105 82 Z" 
+        fill="none" 
+        stroke="#FFFFFF" 
+        stroke-width="2.5"
+        opacity="0.9"/>
+  
+  <!-- Star in Shield - White -->
+  <path d="M 150 95 
+           L 158 118 
+           L 182 118 
+           L 163 132 
+           L 171 155 
+           L 150 141 
+           L 129 155 
+           L 137 132 
+           L 118 118 
+           L 142 118 Z" 
+        fill="#FFFFFF" 
+        filter="url(#shadow)"/>
+  
+  <!-- HBA Letters - White -->
+  <text x="150" y="190" 
+        font-family="Arial Black, Arial, sans-serif" 
+        font-size="42" 
+        font-weight="900" 
+        fill="#FFFFFF" 
+        text-anchor="middle" 
+        letter-spacing="2"
+        filter="url(#shadow)">HBA</text>
+  
+  <!-- Bottom Arc Text - HELLENIC - White -->
+  <path id="topArc" d="M 55 150 A 95 95 0 0 1 245 150" fill="none"/>
+  <text font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF" letter-spacing="3">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+      HELLENIC
+    </textPath>
+  </text>
+  
+  <!-- Bottom Text - White -->
+  <text x="150" y="275" 
+        font-family="Arial, sans-serif" 
+        font-size="14" 
+        font-weight="bold" 
+        fill="#FFFFFF" 
+        text-anchor="middle"
+        letter-spacing="1.5">BODYGUARD</text>
+  <text x="150" y="292" 
+        font-family="Arial, sans-serif" 
+        font-size="11" 
+        font-weight="bold" 
+        fill="#FFFFFF" 
+        text-anchor="middle"
+        letter-spacing="2">ASSOCIATION</text>
+</svg>

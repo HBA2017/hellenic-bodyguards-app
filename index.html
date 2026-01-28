@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0033A0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HBA Digital ID">
+    <title>Hellenic Bodyguards Association</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Login Screen -->
+        <div class="login-screen" id="loginScreen">
+            <div class="login-header">
+                <img src="hba-logo.svg" alt="HBA Logo" class="logo-large-img">
+                <h1>Hellenic Bodyguards<br>Association</h1>
+                <p class="subtitle">Ψηφιακή Ταυτότητα</p>
+            </div>
+            
+            <form class="login-form" id="loginForm">
+                <div class="input-group">
+                    <label>Αριθμός Μέλους</label>
+                    <input type="text" id="memberId" placeholder="HBA-2024-001" autocomplete="off">
+                </div>
+                
+                <div class="input-group">
+                    <label>Κωδικός</label>
+                    <input type="password" id="password" placeholder="••••••••" autocomplete="off">
+                </div>
+                
+                <button type="submit" class="btn-login">Σύνδεση</button>
+                
+                <div class="demo-info">
+                    <p>Demo: HBA-2024-001 / demo123</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Main App Screen -->
+        <div class="main-screen" id="mainScreen" style="display: none;">
+            <!-- Top Header Bar -->
+            <header class="top-bar">
+                <div class="top-bar-content">
+                    <span class="app-title"><img src="hba-logo-white.svg" alt="HBA" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 8px;">HBA Digital ID</span>
+                    <button class="menu-btn" id="menuBtn">⋮</button>
+                </div>
+            </header>
+
+            <!-- Menu Dropdown -->
+            <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+                <button class="menu-item" id="logoutBtn">
+                    <span>🚪</span> Αποσύνδεση
+                </button>
+            </div>
+
+            <!-- Main Content -->
+            <main class="content">
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <h2 id="welcomeName">Καλωσήρθατε</h2>
+                    <p class="member-number" id="memberNumber">HBA-2024-001</p>
+                </div>
+
+                <!-- ID Card Section -->
+                <div class="id-section">
+                    <div class="section-header">
+                        <h3>📇 Η Ταυτότητά μου</h3>
+                    </div>
+                    
+                    <!-- Digital ID Card - Greek Gov Style -->
+                    <div class="digital-id-card" id="idCard">
+                    <div class="card-top">
+                        <div class="card-header-row">
+                            <img src="hba-logo.svg" alt="HBA" class="card-emblem-img">
+                            <div class="card-org">
+                                <div class="org-name">HELLENIC BODYGUARDS</div>
+                                <div class="org-name">ASSOCIATION</div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="card-content">
+                            <div class="photo-section">
+                                <div class="id-photo">
+                                    <div class="photo-placeholder" id="photoPlaceholder">👤</div>
+                                </div>
+                                <div class="id-basic-info">
+                                    <div class="field-group">
+                                        <div class="field-label">ΟΝΟΜΑΤΕΠΩΝΥΜΟ</div>
+                                        <div class="field-value large" id="fullName">-</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="details-grid">
+                                <div class="field-group">
+                                    <div class="field-label">ΑΡΙΘΜΟΣ ΜΕΛΟΥΣ</div>
+                                    <div class="field-value" id="idNumber">-</div>
+                                </div>
+
+                                <div class="field-group">
+                                    <div class="field-label">ΗΜΕΡΟΜΗΝΙΑ ΓΕΝΝΗΣΗΣ</div>
+                                    <div class="field-value" id="birthDate">-</div>
+                                </div>
+
+                                <div class="field-group">
+                                    <div class="field-label">ΕΙΔΙΚΟΤΗΤΑ</div>
+                                    <div class="field-value" id="specialty">-</div>
+                                </div>
+
+                                <div class="field-group">
+                                    <div class="field-label">ΕΠΙΠΕΔΟ</div>
+                                    <div class="field-value" id="level">-</div>
+                                </div>
+
+                                <div class="field-group">
+                                    <div class="field-label">ΗΜΕΡ. ΕΓΓΡΑΦΗΣ</div>
+                                    <div class="field-value" id="issueDate">-</div>
+                                </div>
+
+                                <div class="field-group">
+                                    <div class="field-label">ΛΗΞΗ</div>
+                                    <div class="field-value" id="expiryDate">-</div>
+                                </div>
+                            </div>
+
+                            <div class="status-section">
+                                <div class="status-badge" id="statusBadge">
+                                    <span class="status-dot"></span>
+                                    <span class="status-text">ΕΝΕΡΓΟ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="qr-section">
+                                <canvas id="qrCode" class="qr-canvas"></canvas>
+                                <p class="qr-text">Σάρωσε για επαλήθευση</p>
+                            </div>
+                        </div>
+
+                        <div class="card-security">
+                            <div class="security-badge">🔒 ΨΗΦΙΑΚΗ ΤΑΥΤΟΤΗΤΑ</div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="window.print()">
+                            <span class="btn-icon">🖨️</span>
+                            <span class="btn-text">Εκτύπωση</span>
+                        </button>
+                        <button class="action-btn" id="shareBtn">
+                            <span class="btn-icon">📤</span>
+                            <span class="btn-text">Κοινοποίηση</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Additional Info Cards -->
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <span class="info-icon">📋</span>
+                            <h4>Πιστοποιήσεις</h4>
+                        </div>
+                        <ul class="cert-list" id="certList">
+                            <li>Βασική Εκπαίδευση Bodyguard</li>
+                            <li>Πρώτες Βοήθειες</li>
+                            <li>Αμυντική Οδήγηση</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <span class="info-icon">📞</span>
+                            <h4>Επικοινωνία</h4>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-label">Email:</span>
+                                <span class="contact-value" id="email">-</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-label">Τηλέφωνο:</span>
+                                <span class="contact-value" id="phone">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav">
+                <button class="nav-item active">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Αρχική</span>
+                </button>
+                <button class="nav-item">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-label">Έγγραφα</span>
+                </button>
+                <button class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-label">Ρυθμίσεις</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
