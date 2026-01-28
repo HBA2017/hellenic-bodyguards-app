@@ -9,7 +9,7 @@ const urlsToCache = [
   '/admin.js',
   '/admin-styles.css',
   '/manifest.json',
-  '/hba-logo.svg',
+  '/hba-logo.jpg',
   '/hba-logo-white.svg',
   '/hba-logo-placeholder.svg',
   'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js'
